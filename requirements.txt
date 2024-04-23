@@ -1,0 +1,7 @@
+numpy
+pandas
+scikit-learn
+matplotlib
+DataSynthesizer
+sdv
+nbformat>=4.2.0

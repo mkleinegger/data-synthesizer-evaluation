@@ -1,0 +1,405 @@
+{
+    "meta": {
+        "num_tuples": 48638,
+        "num_attributes": 14,
+        "num_attributes_in_BN": 14,
+        "all_attributes": [
+            "Agency_Text",
+            "Sex_Code_Text",
+            "Ethnic_Code_Text",
+            "DateOfBirth",
+            "ScaleSet_ID",
+            "AssessmentReason",
+            "Language",
+            "LegalStatus",
+            "CustodyStatus",
+            "MaritalStatus",
+            "Screening_Date",
+            "RecSupervisionLevel",
+            "Scale_ID",
+            "ScoreText"
+        ],
+        "candidate_keys": [],
+        "non_categorical_string_attributes": [],
+        "attributes_in_BN": [
+            "Agency_Text",
+            "Sex_Code_Text",
+            "Ethnic_Code_Text",
+            "DateOfBirth",
+            "ScaleSet_ID",
+            "AssessmentReason",
+            "Language",
+            "LegalStatus",
+            "CustodyStatus",
+            "MaritalStatus",
+            "Screening_Date",
+            "RecSupervisionLevel",
+            "Scale_ID",
+            "ScoreText"
+        ]
+    },
+    "attribute_description": {
+        "Agency_Text": {
+            "name": "Agency_Text",
+            "data_type": "String",
+            "is_categorical": true,
+            "is_candidate_key": false,
+            "min": 4,
+            "max": 14,
+            "missing_rate": 0.0,
+            "distribution_bins": [
+                "Broward County",
+                "DRRD",
+                "PRETRIAL",
+                "Probation"
+            ],
+            "distribution_probabilities": [
+                0.005438473709807042,
+                0.008929404737009641,
+                0.6755411194944176,
+                0.3100910020587655
+            ]
+        },
+        "Sex_Code_Text": {
+            "name": "Sex_Code_Text",
+            "data_type": "String",
+            "is_categorical": true,
+            "is_candidate_key": false,
+            "min": 4,
+            "max": 6,
+            "missing_rate": 0.0,
+            "distribution_bins": [
+                "Female",
+                "Male"
+            ],
+            "distribution_probabilities": [
+                0.21905091135178592,
+                0.7809490886482141
+            ]
+        },
+        "Ethnic_Code_Text": {
+            "name": "Ethnic_Code_Text",
+            "data_type": "String",
+            "is_categorical": true,
+            "is_candidate_key": false,
+            "min": 5,
+            "max": 16,
+            "missing_rate": 0.0,
+            "distribution_bins": [
+                "African-Am",
+                "African-American",
+                "Arabic",
+                "Asian",
+                "Caucasian",
+                "Hispanic",
+                "Native American",
+                "Oriental",
+                "Other"
+            ],
+            "distribution_probabilities": [
+                0.0,
+                0.4433795168879907,
+                0.0035027356558259967,
+                0.0019996265223629476,
+                0.3631459604661108,
+                0.1437923525409086,
+                0.0,
+                0.0,
+                0.044179807926800846
+            ]
+        },
+        "DateOfBirth": {
+            "name": "DateOfBirth",
+            "data_type": "Integer",
+            "is_categorical": false,
+            "is_candidate_key": false,
+            "min": 126230400,
+            "max": 3281904000,
+            "missing_rate": 0.0,
+            "distribution_bins": [
+                126230400.0,
+                284014080.0,
+                441797760.0,
+                599581440.0,
+                757365120.0,
+                915148800.0,
+                1072932480.0,
+                1230716160.0,
+                1388499840.0,
+                1546283520.0,
+                1704067200.0,
+                1861850880.0,
+                2019634560.0,
+                2177418240.0,
+                2335201920.0,
+                2492985600.0,
+                2650769280.0,
+                2808552960.0,
+                2966336640.0,
+                3124120320.0
+            ],
+            "distribution_probabilities": [
+                0.09554965843305187,
+                0.1337432048050332,
+                0.1799932718052475,
+                0.19541615638488138,
+                0.06514204571378161,
+                0.008492653466350896,
+                0.0,
+                0.0,
+                0.008295488115633588,
+                0.005128095354941617,
+                0.0028431827610031274,
+                0.0,
+                0.010652345377597305,
+                0.0055570014438554305,
+                0.04104917748180207,
+                0.009969641058252323,
+                0.04391661689619347,
+                0.057106275118173705,
+                0.07056907433771394,
+                0.06657611144648702
+            ]
+        },
+        "ScaleSet_ID": {
+            "name": "ScaleSet_ID",
+            "data_type": "Integer",
+            "is_categorical": true,
+            "is_candidate_key": false,
+            "min": 17,
+            "max": 22,
+            "missing_rate": 0.0,
+            "distribution_bins": [
+                17,
+                22
+            ],
+            "distribution_probabilities": [
+                0.04152080676488123,
+                0.9584791932351188
+            ]
+        },
+        "AssessmentReason": {
+            "name": "AssessmentReason",
+            "data_type": "String",
+            "is_categorical": true,
+            "is_candidate_key": false,
+            "min": 6,
+            "max": 6,
+            "missing_rate": 0.0,
+            "distribution_bins": [
+                "Intake"
+            ],
+            "distribution_probabilities": [
+                1.0
+            ]
+        },
+        "Language": {
+            "name": "Language",
+            "data_type": "String",
+            "is_categorical": true,
+            "is_candidate_key": false,
+            "min": 7,
+            "max": 7,
+            "missing_rate": 0.0,
+            "distribution_bins": [
+                "English",
+                "Spanish"
+            ],
+            "distribution_probabilities": [
+                1.0,
+                0.0
+            ]
+        },
+        "LegalStatus": {
+            "name": "LegalStatus",
+            "data_type": "String",
+            "is_categorical": true,
+            "is_candidate_key": false,
+            "min": 5,
+            "max": 19,
+            "missing_rate": 0.0,
+            "distribution_bins": [
+                "Conditional Release",
+                "Deferred Sentencing",
+                "Other",
+                "Parole Violator",
+                "Post Sentence",
+                "Pretrial",
+                "Probation Violator"
+            ],
+            "distribution_probabilities": [
+                0.009378662087876728,
+                0.0,
+                0.07217744317533353,
+                0.0076295658780834805,
+                0.3070062425434457,
+                0.6038080863152606,
+                0.0
+            ]
+        },
+        "CustodyStatus": {
+            "name": "CustodyStatus",
+            "data_type": "String",
+            "is_categorical": true,
+            "is_candidate_key": false,
+            "min": 6,
+            "max": 19,
+            "missing_rate": 0.0,
+            "distribution_bins": [
+                "Jail Inmate",
+                "Parole",
+                "Pretrial Defendant",
+                "Prison Inmate",
+                "Probation",
+                "Residential Program"
+            ],
+            "distribution_probabilities": [
+                0.503614547970882,
+                0.003968161828715851,
+                0.12157694985677114,
+                0.0004823103853555314,
+                0.37035802995827544,
+                0.0
+            ]
+        },
+        "MaritalStatus": {
+            "name": "MaritalStatus",
+            "data_type": "String",
+            "is_categorical": true,
+            "is_candidate_key": false,
+            "min": 6,
+            "max": 17,
+            "missing_rate": 0.0,
+            "distribution_bins": [
+                "Divorced",
+                "Married",
+                "Separated",
+                "Significant Other",
+                "Single",
+                "Unknown",
+                "Widowed"
+            ],
+            "distribution_probabilities": [
+                0.04539022176066557,
+                0.14234072504354522,
+                0.02510017740862193,
+                0.019066331338649243,
+                0.7615377149830567,
+                0.0065648294654614674,
+                0.0
+            ]
+        },
+        "Screening_Date": {
+            "name": "Screening_Date",
+            "data_type": "Integer",
+            "is_categorical": false,
+            "is_candidate_key": false,
+            "min": 1356998400,
+            "max": 1419984000,
+            "missing_rate": 0.0,
+            "distribution_bins": [
+                1356998400.0,
+                1360147680.0,
+                1363296960.0,
+                1366446240.0,
+                1369595520.0,
+                1372744800.0,
+                1375894080.0,
+                1379043360.0,
+                1382192640.0,
+                1385341920.0,
+                1388491200.0,
+                1391640480.0,
+                1394789760.0,
+                1397939040.0,
+                1401088320.0,
+                1404237600.0,
+                1407386880.0,
+                1410536160.0,
+                1413685440.0,
+                1416834720.0
+            ],
+            "distribution_probabilities": [
+                0.055070444705090565,
+                0.062024269322331335,
+                0.06773560434586923,
+                0.057146225683400644,
+                0.0448299071985593,
+                0.03248572058581556,
+                0.059278431355252,
+                0.05578580188100194,
+                0.05749174395951043,
+                0.04362562902012139,
+                0.051420271790943856,
+                0.04935661936347899,
+                0.04423836719977696,
+                0.06175278871791584,
+                0.05240338546122223,
+                0.04758563598559609,
+                0.038112582290419875,
+                0.044619342677324016,
+                0.04489382723500472,
+                0.030143401221365138
+            ]
+        },
+        "RecSupervisionLevel": {
+            "name": "RecSupervisionLevel",
+            "data_type": "Integer",
+            "is_categorical": true,
+            "is_candidate_key": false,
+            "min": 1,
+            "max": 4,
+            "missing_rate": 0.0,
+            "distribution_bins": [
+                1,
+                2,
+                3,
+                4
+            ],
+            "distribution_probabilities": [
+                0.6339814813064845,
+                0.1765451463865218,
+                0.12788872591931724,
+                0.061584646387676495
+            ]
+        },
+        "Scale_ID": {
+            "name": "Scale_ID",
+            "data_type": "Integer",
+            "is_categorical": true,
+            "is_candidate_key": false,
+            "min": 7,
+            "max": 18,
+            "missing_rate": 0.0,
+            "distribution_bins": [
+                7,
+                8,
+                18
+            ],
+            "distribution_probabilities": [
+                0.32607977603533056,
+                0.3313099411758959,
+                0.34261028278877353
+            ]
+        },
+        "ScoreText": {
+            "name": "ScoreText",
+            "data_type": "String",
+            "is_categorical": true,
+            "is_candidate_key": false,
+            "min": 3,
+            "max": 6,
+            "missing_rate": 0.0,
+            "distribution_bins": [
+                "High",
+                "Low",
+                "Medium"
+            ],
+            "distribution_probabilities": [
+                0.11013654873705826,
+                0.6762967348329636,
+                0.2135667164299781
+            ]
+        }
+    }
+}
