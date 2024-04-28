@@ -3,5 +3,6 @@ pandas
 scikit-learn
 matplotlib
 DataSynthesizer
+anonymeter
 sdv
 nbformat>=4.2.0
