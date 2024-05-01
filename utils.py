@@ -1,62 +1,78 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.compose import ColumnTransformer
+from sklearn.discriminant_analysis import StandardScaler
+from sklearn.preprocessing import OneHotEncoder
 
 from anonymeter.evaluators import SinglingOutEvaluator
 from anonymeter.evaluators import InferenceEvaluator
 
-def split_data(df_train, df_test, nominal_features):
-    X_train = df_train.drop('ScoreText', axis=1)
-    X_train = pd.get_dummies(X_train, columns=nominal_features)
-    y_train = df_train['ScoreText']
 
-    X_test = df_test.drop('ScoreText', axis=1)
-    X_test = pd.get_dummies(X_test, columns=nominal_features)
-    y_test = df_test['ScoreText']
+def split_data(df_train, df_test, nominal_features, target):
+    def split_into_X_y(column_transformer, data):
+        X, y = data.drop(target, axis=1), data[target]
+        X_transformed = column_transformer.transform(X)
+
+        return (X_transformed, y)
+
+    column_transformer = ColumnTransformer(
+        transformers=[('cat', OneHotEncoder(), nominal_features)]
+    )
     
+    column_transformer.fit(df_train)
+
+    X_train, y_train = split_into_X_y(column_transformer, df_train)
+    X_test, y_test = split_into_X_y(column_transformer, df_test)
+        
     return X_train, y_train, X_test, y_test
 
-def train_and_evaluate(clf, df_train, df_test, nominal_features, remove_diff_cols=False):
-    X_train, y_train, X_test, y_test = split_data(df_train, df_test, nominal_features)
-    if remove_diff_cols:
-        # Remove columns that are not in the train set
-        X_test = X_test[X_train.columns]
-
+def train_and_evaluate(clf, df_train, df_test, nominal_features, target):
+    X_train, y_train, X_test, y_test = split_data(df_train, df_test, nominal_features, target)
     clf.fit(X_train, y_train)
     y_pred = clf.predict(X_test)
-    accuracy = accuracy_score(y_test, y_pred)
-    print(f"Accuracy: {accuracy:0.2f}%")
 
-def generate_synthetic_data(synthesizer, df, num_rows=None):
-    if num_rows is None:
-        num_rows = len(df)
+    return {
+        'accuracy': accuracy_score(y_test, y_pred),
+        'precision': precision_score(y_test, y_pred, average='macro'),
+        'recall': recall_score(y_test, y_pred, average='macro'),
+        'f1': f1_score(y_test, y_pred, average='macro')
+    }
 
-    synthesizer.fit(df)
+def generate_synthetic_data(synthesizer, df, num_rows=None, fit=False):
+    def fit_synthesizer(synthesizer, df):
+        synthesizer.fit(df)
+        synthesizer.save(filepath=f'./synthesizers/{type(synthesizer).__name__}.pkl')
+    
+    try:
+        if fit: fit_synthesizer(synthesizer, df)
+        else: synthesizer = synthesizer.load(filepath=f'./synthesizers/{type(synthesizer).__name__}.pkl')
+    except: 
+        fit_synthesizer(synthesizer, df)
+    
+    if num_rows is None: num_rows = len(df)
     return synthesizer.sample(num_rows=num_rows)
 
 def evaluate_privacy_risks(df_orig, df_synth, n_attacks = 1000, n_cols = None):
+    def evaluate(evaluator, mode):
+        try:
+            evaluator.evaluate(mode=mode)
+            return evaluator.risk()
+        except RuntimeError as ex: 
+            print(f"Singling out evaluation failed with {ex}. Please re-run this cell."
+                "For more stable results increase `n_attacks`. Note that this will "
+                "make the evaluation slower.")
+            return None
+    
     if n_cols is None:
         n_cols = len(df_orig.columns)
 
     evaluator = SinglingOutEvaluator(ori=df_orig, syn=df_synth, n_attacks = n_attacks, n_cols = n_cols)
-    try:
-        evaluator.evaluate(mode='univariate')
-        print(f"Privacy risks concerning the univariate attacks (1 col): ${evaluator.risk()}")
-
-    except RuntimeError as ex: 
-        print(f"Singling out evaluation failed with {ex}. Please re-run this cell."
-          "For more stable results increase `n_attacks`. Note that this will "
-          "make the evaluation slower.")
-        
-    try:
-        evaluator.evaluate(mode='multivariate')
-        print(f"Privacy risks concerning the multivariate attacks (${n_cols} col): ${evaluator.risk()}")
-
-    except RuntimeError as ex: 
-        print(f"Singling out evaluation failed with {ex}. Please re-run this cell."
-          "For more stable results increase `n_attacks`. Note that this will "
-          "make the evaluation slower.")
+    return {
+        'univariate': evaluate(evaluator, 'univariate'),
+        'multivariate': evaluate(evaluator, 'multivariate')
+    }
 
 def evaluate_inference_risks(df_orig, df_synth, n_attacks = 1000):
     columns = df_orig.columns
