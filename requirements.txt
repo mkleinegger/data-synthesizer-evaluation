@@ -6,3 +6,6 @@ DataSynthesizer
 anonymeter
 sdv
 nbformat>=4.2.0
+pomegranate
+sdmetrics
+kaleido
