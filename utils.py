@@ -5,7 +5,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder
 
-from sdmetrics.single_table import DiscreteKLDivergence, ContinuousKLDivergence, KSComplement, CSTest, SVCDetection
+from sdmetrics.single_table import DiscreteKLDivergence, ContinuousKLDivergence, KSComplement, CSTest, SVCDetection, TVComplement, LogisticDetection
 
 
 from anonymeter.evaluators import SinglingOutEvaluator, InferenceEvaluator
@@ -74,36 +74,37 @@ def _evaluate(evaluator, mode):
         return None
 
 
-def evaluate_privacy_risks(df_orig, df_synth, n_attacks=1000, n_cols=None):
+def evaluate_privacy_risks(df_orig, df_synth, df_control, n_attacks=1000, n_cols=None):
     if n_cols is None:
         n_cols = len(df_orig.columns)
 
     return {
-        'univariate': _evaluate(SinglingOutEvaluator(ori=df_orig, syn=df_synth, n_attacks=n_attacks), 'univariate'),
-        'multivariate': _evaluate(SinglingOutEvaluator(ori=df_orig, syn=df_synth, n_attacks=n_attacks, n_cols=len(df_orig.columns)), 'multivariate')
+        'univariate': _evaluate(SinglingOutEvaluator(ori=df_orig, syn=df_synth, control=df_control, n_attacks=n_attacks), 'univariate'),
+        'multivariate': _evaluate(SinglingOutEvaluator(ori=df_orig, syn=df_synth, control=df_control, n_attacks=n_attacks, n_cols=len(df_orig.columns)), 'multivariate')
     }
 
 
 def evaluate_fidelity(df_orig, df_synth):
     return {
         'CSTest': CSTest.compute(df_orig, df_synth),
-        'KSComplement': KSComplement.compute(df_orig, df_synth),
         'ContinuousKLDivergence': ContinuousKLDivergence.compute(df_orig, df_synth),
         'DiscreteKLDivergence': DiscreteKLDivergence.compute(df_orig, df_synth),
-        'SVCDetection': SVCDetection.compute(df_orig, df_synth)
+        'SVCDetection': SVCDetection.compute(df_orig, df_synth),
+        'LogisticDetection': LogisticDetection.compute(df_orig, df_synth)
     }
 
 
-def evaluate_inference_risks(df_orig, df_synth, n_attacks=1000):
+def evaluate_inference_risks(df_orig, df_synth, df_control, n_attacks=1000):
     columns = df_orig.columns
     results = []
 
     for secret in columns:
         aux_cols = [col for col in columns if col != secret]
-        evaluator = InferenceEvaluator(ori=df_orig, syn=df_synth, aux_cols=aux_cols, secret=secret, n_attacks=n_attacks)
+        evaluator = InferenceEvaluator(ori=df_orig, syn=df_synth, control=df_control, aux_cols=aux_cols, secret=secret, n_attacks=n_attacks)
         evaluator.evaluate(n_jobs=-2)
         results.append((secret, evaluator.results()))
 
+    print({res[0]: res[1].risk() for res in results})
     visulize_inference_risks(results)
 
 
