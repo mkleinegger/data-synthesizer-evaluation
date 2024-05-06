@@ -1,0 +1,47 @@
+{
+    "columns": {
+        "Agency_Text": {
+            "sdtype": "categorical"
+        },
+        "Sex_Code_Text": {
+            "sdtype": "categorical"
+        },
+        "Ethnic_Code_Text": {
+            "sdtype": "categorical"
+        },
+        "DateOfBirth": {
+            "sdtype": "numerical"
+        },
+        "ScaleSet_ID": {
+            "sdtype": "categorical"
+        },
+        "AssessmentReason": {
+            "sdtype": "categorical"
+        },
+        "Language": {
+            "sdtype": "categorical"
+        },
+        "LegalStatus": {
+            "sdtype": "categorical"
+        },
+        "CustodyStatus": {
+            "sdtype": "categorical"
+        },
+        "MaritalStatus": {
+            "sdtype": "categorical"
+        },
+        "Screening_Date": {
+            "sdtype": "numerical"
+        },
+        "RecSupervisionLevel": {
+            "sdtype": "categorical"
+        },
+        "Scale_ID": {
+            "sdtype": "categorical"
+        },
+        "ScoreText": {
+            "sdtype": "categorical"
+        }
+    },
+    "METADATA_SPEC_VERSION": "SINGLE_TABLE_V1"
+}
